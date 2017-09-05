@@ -99,3 +99,8 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+
+settings.ini
+*.sqlite3
+Pipfile.lock
