@@ -4,6 +4,9 @@ verify_ssl = true
 
 [packages]
 python-decouple = "*"
-ipdb = "*"
 Django = "*"
 requests = "*"
+
+[dev-packages]
+ipdb = "*"
+flake8 = "*"
