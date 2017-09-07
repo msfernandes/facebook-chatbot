@@ -6,6 +6,8 @@ verify_ssl = true
 python-decouple = "*"
 Django = "*"
 requests = "*"
+gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 ipdb = "*"
