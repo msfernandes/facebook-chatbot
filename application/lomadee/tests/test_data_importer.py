@@ -1,8 +1,7 @@
 from django.test import TestCase, override_settings
 from lomadee.data_importer import ComputerDataImporter
-from mock import PropertyMock, MagicMock
+from mock import MagicMock
 import mock
-import requests
 
 
 def json_mock_response(status='OK', page=1, total_page=1):
