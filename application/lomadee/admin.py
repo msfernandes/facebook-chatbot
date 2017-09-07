@@ -1,3 +1,7 @@
 from django.contrib import admin
+from lomadee import models
 
-# Register your models here.
+
+@admin.register(models.Computer)
+class ComputerAdmin(admin.ModelAdmin):
+    pass
