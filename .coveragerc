@@ -1,0 +1,15 @@
+[run]
+include = ./application/*
+branch = True
+
+
+[report]
+omit =
+    */migrations/*
+    application/manage.py
+
+show_missing = True
+
+
+[paths]
+source = application/

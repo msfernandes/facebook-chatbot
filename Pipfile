@@ -12,3 +12,4 @@ whitenoise = "*"
 [dev-packages]
 ipdb = "*"
 flake8 = "*"
+coverage = "*"
