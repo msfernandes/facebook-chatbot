@@ -21,7 +21,7 @@ class Computer(models.Model):
     gpu = models.BooleanField(default=False)
     ssd = models.BooleanField(default=False)
     ram = models.IntegerField(default=2)
-    disk = models.IntegerField(defaul=0)
+    disk = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Computer"
