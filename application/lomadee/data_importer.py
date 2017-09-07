@@ -24,15 +24,13 @@ class ComputerDataImporter(object):
 
         data = requests.get(url).json()
         if data['requestInfo']['status'] != 'OK':
-            return False
+            return None
 
         final_data = []
         final_data.extend(data['offers'])
         pagination = data['pagination']
 
-        # Get only 3 pages. To get all pages use:
-        # if pagination['page'] < pagination['totalPage']
-        if pagination['page'] < 3:
+        if pagination['page'] < pagination['totalPage']:
             next_page_data = self.get_data(
                 self.build_api_url(page=pagination['page'] + 1)
             )
