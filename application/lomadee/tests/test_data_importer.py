@@ -47,9 +47,6 @@ class ComputerDataImporterTestCase(TestCase):
         )
 
     @mock.patch('requests.get')
-    @override_settings(LOMADEE_API_URL='http://lomadee.api/',
-                       LOMADEE_APP_TOKEN='1234',
-                       LOMADEE_SOURCE_ID='123')
     def test_get_data(self, requests_mock):
         response = MagicMock()
         response.json = lambda: json_mock_response()
@@ -68,9 +65,6 @@ class ComputerDataImporterTestCase(TestCase):
         ])
 
     @mock.patch('requests.get')
-    @override_settings(LOMADEE_API_URL='http://lomadee.api/',
-                       LOMADEE_APP_TOKEN='1234',
-                       LOMADEE_SOURCE_ID='123')
     def test_get_data_404(self, requests_mock):
         response = MagicMock()
         response.json = lambda: json_mock_response(status=404)
@@ -81,9 +75,6 @@ class ComputerDataImporterTestCase(TestCase):
         self.assertIsNone(data)
 
     @mock.patch('requests.get')
-    @override_settings(LOMADEE_API_URL='http://lomadee.api/',
-                       LOMADEE_APP_TOKEN='1234',
-                       LOMADEE_SOURCE_ID='123')
     def test_get_data_pagination(self, requests_mock):
         response1 = MagicMock()
         response1.json = lambda: json_mock_response(total_page=2)

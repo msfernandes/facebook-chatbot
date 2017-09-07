@@ -112,6 +112,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'public')
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-LOMADEE_APP_TOKEN = config('LOMADEE_APP_TOKEN')
-LOMADEE_SOURCE_ID = config('LOMADEE_SOURCE_ID')
-LOMADEE_API_URL = config('LOMADEE_API_URL')
+LOMADEE_APP_TOKEN = config('LOMADEE_APP_TOKEN', default='')
+LOMADEE_SOURCE_ID = config('LOMADEE_SOURCE_ID', default='')
+LOMADEE_API_URL = config('LOMADEE_API_URL', default='')
