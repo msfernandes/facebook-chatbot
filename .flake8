@@ -3,4 +3,4 @@ exclude =
     .git,
     __pycache__,
     application/manage.py,
-    migrations/,
+    */migrations/,

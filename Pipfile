@@ -4,12 +4,15 @@ verify_ssl = true
 
 [packages]
 python-decouple = "*"
-Django = "*"
 requests = "*"
 gunicorn = "*"
 whitenoise = "*"
+Django = "*"
+pytz = "*"
 
 [dev-packages]
 ipdb = "*"
 flake8 = "*"
 coverage = "*"
+pyflakes = "*"
+pycodestyle = "*"
