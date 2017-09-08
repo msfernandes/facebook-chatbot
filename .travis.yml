@@ -9,6 +9,8 @@ script:
 - pipenv run coverage run application/manage.py test application
 - pipenv run coverage report
 - pipenv run flake8 application
+after_success:
+- coveralls
 
 deploy:
   provider: heroku
