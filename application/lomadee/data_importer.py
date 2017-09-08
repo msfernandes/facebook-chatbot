@@ -42,6 +42,15 @@ class ComputerDataImporter(object):
             final_data.extend(next_page_data)
         return final_data
 
+    def get_valid_data(self):
+        all_data = self.get_data()
+        valid_data = []
+        for data in all_data:
+            cpu, ram, disk, _, _, _ = self.get_specs(data['name'])
+            if None not in (cpu, disk, ram):
+                valid_data.append(data)
+
+        return valid_data
     def get_specs(self, description):
         cpu = self.get_cpu(description)
         ram = self.get_ram(description)
