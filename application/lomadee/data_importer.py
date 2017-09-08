@@ -1,6 +1,10 @@
 from django.conf import settings
 from urllib.parse import urljoin, urlencode
 import requests
+import requests_cache
+
+
+requests_cache.install_cache('lomadee_cache')
 
 
 class ComputerDataImporter(object):
