@@ -51,6 +51,7 @@ class ComputerDataImporter(object):
                 valid_data.append(data)
 
         return valid_data
+
     def get_specs(self, description):
         cpu = self.get_cpu(description)
         ram = self.get_ram(description)
