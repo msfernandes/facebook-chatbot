@@ -18,10 +18,11 @@ class Computer(models.Model):
     price = models.FloatField()
     thumbnail_url = models.URLField()
     cpu = models.CharField(choices=CPU_CHOICES, max_length=2)
-    gpu = models.BooleanField(default=False)
-    ssd = models.BooleanField(default=False)
     ram = models.IntegerField(default=2)
     disk = models.IntegerField(default=0)
+    is_macbook = models.BooleanField(default=False)
+    has_gpu = models.BooleanField(default=False)
+    has_ssd = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Computer"
