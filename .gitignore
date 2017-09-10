@@ -105,3 +105,4 @@ settings.ini
 *.sqlite3
 *.sqlite
 Pipfile.lock
+application/public
