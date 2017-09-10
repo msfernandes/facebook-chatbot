@@ -1,5 +1,7 @@
 from django.conf import settings
 from urllib.parse import urljoin, urlencode
+from lomadee import models
+from django.db import transaction
 import re
 import requests
 import requests_cache
@@ -47,10 +49,43 @@ class ComputerDataImporter(object):
         valid_data = []
         for data in all_data:
             cpu, ram, disk, _, _, _ = self.get_specs(data['name'])
-            if None not in (cpu, disk, ram):
+            if None not in (cpu, disk, ram, data['price']):
                 valid_data.append(data)
 
         return valid_data
+
+    def save_data(self):
+        data = self.get_valid_data()
+        empty_database = not models.Computer.objects.all().exists()
+        for computer_data in data:
+            self.create_object(computer_data, empty_database)
+
+    @transaction.atomic
+    def create_object(self, data, empty_database=True):
+        if empty_database:
+            computer = models.Computer()
+            computer.id = data['id']
+        else:
+            computer = models.Computer.objects.get_or_create(id=data['id'])[0]
+
+        specs = self.get_specs(data['name'])
+        computer.name = data['name']
+        computer.price = data['price']
+        computer.thumbnail = data['thumbnail']
+        computer.link = data['link']
+        computer.cpu = specs[0]
+        computer.ram = specs[1]
+        computer.disk = specs[2]
+        computer.is_macbook = specs[3]
+        computer.has_gpu = specs[4]
+        computer.has_ssd = specs[5]
+
+        product = data.get('product', None)
+        if product:
+            computer.rating = data['product']['userRating']['rating']
+
+        computer.save()
+        return computer
 
     def get_specs(self, description):
         cpu = self.get_cpu(description)
@@ -85,7 +120,8 @@ class ComputerDataImporter(object):
         return self._has('apple|macbook', description)
 
     def has_gpu(self, description):
-        return self._has('geforce|gtx|dedicad[ao]|nvidea|radeon', description)
+        return self._has('geforce|gtx|dedicad[ao]|nvidea|radeon|graphics',
+                         description)
 
     def has_ssd(self, description):
         return self._has('ssd|solid state', description)
