@@ -164,6 +164,11 @@ class ComputerDataImporterTestCase(TestCase):
         self.assertFalse(computer.is_macbook)
         self.assertFalse(computer.has_gpu)
         self.assertFalse(computer.has_ssd)
+        self.assertEquals(
+            str(computer),
+            'Notebook Samsung Essentials E32 Intel Core i3 4GB 1TB '
+            'Tela LED HD 14 ´ Windows 10 - Preto'
+        )
 
     def test_create_object_full_database(self):
         data = {
