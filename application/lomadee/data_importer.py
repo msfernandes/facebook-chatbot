@@ -66,7 +66,13 @@ class ComputerDataImporter(object):
             computer = models.Computer()
             computer.id = data['id']
         else:
-            computer = models.Computer.objects.get_or_create(id=data['id'])[0]
+            computer = models.Computer.objects.get_or_create(
+                id=data['id'],
+                defaults={'name': data['name'],
+                          'price': data['price'],
+                          'thumbnail': data['thumbnail'],
+                          'link': data['link']}
+            )[0]
 
         specs = self.get_specs(data['name'])
         computer.name = data['name']
