@@ -1,4 +1,5 @@
 from django.test import TestCase, override_settings
+from lomadee import models
 from lomadee.data_importer import ComputerDataImporter
 from mock import MagicMock
 import mock
@@ -130,6 +131,51 @@ class ComputerDataImporterTestCase(TestCase):
         valid_data = self.importer.get_valid_data()
         self.assertEquals(len(valid_data), 2)
         self.assertGreater(len(return_value), len(valid_data))
+
+    @mock.patch('lomadee.data_importer.ComputerDataImporter.get_data')
+    def test_save_data(self, get_data_mock):
+        return_value = [
+            {'id': '124405051',
+             'name': 'Notebook Samsung Essentials E32 Intel Core i3 4GB 1TB '
+                     'Tela LED HD 14 ´ Windows 10 - Preto',
+             'link': 'http://product.redirect',
+             'thumbnail': 'http://thumbnail.link',
+             'price': 3888.90,
+             'product': {'userRating': {'rating': 8}}}
+        ]
+        get_data_mock.return_value = return_value
+        self.importer.save_data()
+        self.assertEquals(models.Computer.objects.all().count(), 1)
+
+    def test_create_object(self):
+        data = {
+            'id': '124405051',
+            'name': 'Notebook Samsung Essentials E32 Intel Core i3 4GB 1TB '
+                    'Tela LED HD 14 ´ Windows 10 - Preto',
+            'link': 'http://product.redirect',
+            'thumbnail': 'http://thumbnail.link',
+            'price': 3888.90,
+            'product': {'userRating': {'rating': 8}}
+        }
+        computer = self.importer.create_object(data)
+        self.assertEquals(computer.cpu, 'i3')
+        self.assertEquals(computer.ram, 4)
+        self.assertEquals(computer.disk, 1000)
+        self.assertFalse(computer.is_macbook)
+        self.assertFalse(computer.has_gpu)
+        self.assertFalse(computer.has_ssd)
+
+    def test_create_object_full_database(self):
+        data = {
+            'id': '124405051',
+            'name': 'Notebook Samsung Essentials E32 Intel Core i3 4GB 1TB '
+                    'Tela LED HD 14 ´ Windows 10 - Preto',
+            'link': 'http://product.redirect',
+            'thumbnail': 'http://thumbnail.link',
+            'price': 3888.90
+        }
+        computer = self.importer.create_object(data, False)
+        self.assertEquals(computer.rating, 0)
 
     def test_has_method(self):
         self.assertTrue(self.importer._has('sub', 'substring'))
