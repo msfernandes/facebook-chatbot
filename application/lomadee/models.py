@@ -14,9 +14,12 @@ class Computer(models.Model):
         (CPU_I7, 'Intel Core i7'),
     )
 
+    id = models.CharField(max_length=50, primary_key=True)
     name = models.CharField(max_length=255)
     price = models.FloatField()
-    thumbnail_url = models.URLField()
+    thumbnail = models.URLField()
+    link = models.URLField()
+    rating = models.IntegerField(default=0)
     cpu = models.CharField(choices=CPU_CHOICES, max_length=2)
     ram = models.IntegerField(default=2)
     disk = models.IntegerField(default=0)
@@ -27,6 +30,7 @@ class Computer(models.Model):
     class Meta:
         verbose_name = "Computer"
         verbose_name_plural = "Computers"
+        ordering = ['-rating']
 
     def __str__(self):
         return self.name
