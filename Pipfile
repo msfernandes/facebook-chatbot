@@ -7,8 +7,11 @@ python-decouple = "*"
 requests = "*"
 gunicorn = "*"
 whitenoise = "*"
-Django = "*"
+django = "*"
 pytz = "*"
+numpy = "*"
+sklearn = "*"
+scipy = "*"
 
 [dev-packages]
 ipdb = "*"
