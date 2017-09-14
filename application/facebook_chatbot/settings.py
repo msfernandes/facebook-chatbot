@@ -116,3 +116,10 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 LOMADEE_APP_TOKEN = config('LOMADEE_APP_TOKEN', default='')
 LOMADEE_SOURCE_ID = config('LOMADEE_SOURCE_ID', default='')
 LOMADEE_API_URL = config('LOMADEE_API_URL', default='')
+
+FACEBOOK_SECRET_TOKEN = config('FACEBOOK_SECRET_TOKEN', default='')
+FACEBOOK_VERIFY_TOKEN = config('FACEBOOK_VERIFY_TOKEN', default='')
+FACEBOOK_API_URL = config(
+    'FACEBOOK_API_URL',
+    default='https://graph.facebook.com/v2.6/'
+)

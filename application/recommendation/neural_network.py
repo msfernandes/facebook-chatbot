@@ -31,7 +31,7 @@ class Classifier():
 
     def _classifier(self, x_train, y_train):
         classifier = MLPClassifier(hidden_layer_sizes=(11, 14, 18),
-                                   max_iter=5000)
+                                   max_iter=10000)
         classifier.fit(self.trainset_input(), self.trainset_output())
         return classifier
 
