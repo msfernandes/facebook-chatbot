@@ -2,7 +2,8 @@ from django.views.generic import View
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from recommendation import facebook, models, bot
+from recommendation import facebook, models
+from recommendation.bot import states
 import json
 
 
@@ -34,10 +35,18 @@ class WebhookView(View):
                     user_state, _ = models.UserState.objects.get_or_create(
                         pk=user_id
                     )
-                    context = bot.Context(user_state.state)
-                    response = context.process_message(message, user_id)
+                    # context = bot.Context(user_state.state)
+                    print('#' * 50)
+                    print(message)
+                    print('#' * 50)
+                    # response = context.process_message(message, user_id)
+                    state_handler = states.StateHandler(
+                        user_state.state,
+                        user_id
+                    )
+                    response = state_handler.process_message(message)
                     facebook.send_message(user_id, 'message', response)
-                    if user_state.state == 'price':
+                    if user_state.state == 'suggest':
                         facebook.send_message(
                             user_id, 'message',
                             {'text': ('Esses foram os resultados que se '
