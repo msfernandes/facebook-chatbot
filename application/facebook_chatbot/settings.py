@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 from decouple import config, Csv
+from dj_database_url import parse as db_url
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -78,15 +79,11 @@ WSGI_APPLICATION = 'facebook_chatbot.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.' + config('DATABASE_ENGINE',
-                                                 default='sqlite3'),
-        'NAME': config('DATABASE_NAME', default='db.sqlite3'),
-        'USER': config('DATABASE_USER', default=''),
-        'PASSWORD': config('DATABASE_PASSWORD', default=''),
-        'HOST': config('DATABASE_HOST', default=''),
-        'PORT': config('DATABASE_PORT', default=''),
-    }
+    'default': config(
+        'DATABASE_URL',
+        default='sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3'),
+        cast=db_url
+    )
 }
 
 # Password validation
