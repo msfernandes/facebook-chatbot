@@ -28,8 +28,6 @@ class State(ABC):
         self.user_profile = models.UserProfile.objects.get_or_create(
             user=self.user_id,
         )[0]
-        print('@' * 80)
-        print(self.user_profile.__dict__)
         if self.new_profile:
             self.user_profile.is_student = 0
             self.user_profile.documents_sheets = 0
@@ -74,7 +72,7 @@ class WelcomeState(State):
     def get_text(self):
         return ("Olá, {}! Tudo bem? Eu posso te ajudar a escolher um "
                 "notebook ideal pra você! Basta responder algumas perguntas "
-                "que eu farei uma análise do seu perfil e direi o melhor "
+                "e eu farei uma análise do seu perfil e direi o melhor "
                 "notebook para você! Vamos começar?".format(
                     self.user_infos['first_name']
                 ))
@@ -96,7 +94,7 @@ class StudentState(State):
         if self.user_response is None:
             text = ('Desculpe, não consegui te entender...\r\nVamos começar?')
         elif self.user_response == 'pos':
-            text = ('Ótimo! Vamos para a primeira pergunta!\r\n\r\n'
+            text = ('Ótimo!\r\nVamos para a primeira pergunta!\r\n\r\n'
                     'Você é estudante?')
         else:
             text = ('Ah, tudo bem, fica pra próxima :(\r\n\r\n'
@@ -121,7 +119,7 @@ class WorkState(State):
         if self.user_response is None:
             text = ('Desculpe, não consegui te entender...\r\nÉ estudante?')
         else:
-            text = ('Anotado! Podemos ir para a próxima pergunta:\r\n'
+            text = ('Anotado!\r\n\r\nPodemos ir para a próxima pergunta:\r\n'
                     'Você pretende user o notebook para trabalhar?')
         return text
 
@@ -155,7 +153,7 @@ class WaitWorkState(State):
             text = ('Você está procurando um notebook para mais algum tipo '
                     'de trabalho?')
         elif self.move_to_next:
-            text = ('Obrigado! :)\r\nVocê pretende usar o notebook para '
+            text = ('Obrigado! :)\r\n\r\nVocê pretende usar o notebook para '
                     'jogar?')
         else:
             text = ('Desculpe, mas você poderia escolher uma das opções?')
@@ -197,7 +195,7 @@ class WaitGameState(State):
         if self.user_response and not self.move_to_next:
             text = ('Você pretende jogar o outro tipo de jogo também?')
         elif self.move_to_next:
-            text = ('Obrigado pela resposta :)\r\n'
+            text = ('Obrigado pela resposta :)\r\n\r\n'
                     'Última pergunta, prometo! Você prefere um notebook '
                     'que atenda muito bem ao seu perfil ou um que atenda '
                     'minimamente?')

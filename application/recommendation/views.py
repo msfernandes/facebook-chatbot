@@ -35,11 +35,7 @@ class WebhookView(View):
                     user_state, _ = models.UserState.objects.get_or_create(
                         pk=user_id
                     )
-                    # context = bot.Context(user_state.state)
-                    print('#' * 50)
-                    print(message)
-                    print('#' * 50)
-                    # response = context.process_message(message, user_id)
+
                     state_handler = states.StateHandler(
                         user_state.state,
                         user_id

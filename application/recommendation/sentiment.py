@@ -12,6 +12,7 @@ train = [
     ('só se for agora', 'pos'),
     ('bora', 'pos'),
     ('nao', 'neg'),
+    ('não', 'neg'),
     ('n', 'neg'),
     ('depois', 'neg'),
     ('agora não dá', 'neg'),
